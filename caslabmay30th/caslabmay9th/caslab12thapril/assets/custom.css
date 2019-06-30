@@ -1,0 +1,153 @@
+.linkbutton1
+{
+	margin-left:600px;
+	margin-top:-200px;
+	Font-size:large;
+}
+
+.lbl{
+     width: 80px;
+    float:left;
+    margin-left: -22px;
+    transform:rotate(-50deg);
+-ms-transform:rotate(-50deg); /* IE 9 */
+-webkit-transform:rotate(-50deg);
+opacity:0.2;
+}
+
+.split {
+  height: 100%;
+  width: 50%;
+  position: fixed;
+  z-index: 1;
+  top: 0;
+  overflow-x: hidden;
+  padding-top: 20px;
+}
+
+.left {
+  left: 0;
+  background-color: #111;
+}
+
+.right {
+  right: 0;
+  background-color: red;
+}
+
+.centered {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+}
+
+.centered img {
+  width: 150px;
+  border-radius: 50%;
+}
+
+
+
+
+
+
+
+
+.list-group.list-group-tree {
+  padding: 0;
+}
+
+.list-group.list-group-tree .list-group {
+  margin-bottom: 0;
+}
+
+.list-group.list-group-tree > .list-group > .list-group-item {
+  padding-left: 30px;
+}
+.list-group.list-group-tree > .list-group > .list-group > .list-group-item {
+  padding-left: 45px;
+}
+.list-group.list-group-tree > .list-group > .list-group > .list-group-item > .list-group-item {
+  padding-left: 60px;
+}
+.list-group.list-group-tree > .list-group > .list-group > .list-group-item > .list-group-item > .list-group-item {
+  padding-left: 75px;
+}
+.list-group.list-group-tree > .list-group > .list-group > .list-group-item > .list-group-item > .list-group-item > .list-group-item {
+  padding-left: 90px;
+}
+
+
+
+
+
+
+.list-group-item .fa {
+  margin-right: 5px;
+}
+
+.fa-chevron:before {
+      content: "\f07b"; /*right*/
+}
+.in > .fa-chevron:before {
+      content: "\f07c"; /*down*/
+}
+
+
+
+.div1{
+	height: 100%;
+  width: 27%;
+  position: fixed;
+  z-index: 1; 
+  left: 300px; overflow-x: hidden;
+}
+.divf{
+	height: 100%;
+  width: 78%;
+  position: fixed;
+  z-index: 1; 
+  left: 300px; overflow-x: hidden;
+}
+
+.div2{
+height: 100%;
+  width: 50%;
+  position: fixed;
+  z-index: 1; right:0; overflow-x: hidden;
+}
+
+
+.nav1{
+height: 100%;
+  width: 20%;
+  position: fixed;
+  z-index: 1; background-color:green;
+  left:0; overflow-x: hidden;
+}
+
+
+.one{
+    
+    height:520px;
+    border: 2px solid #bed5cd;
+    overflow-y: auto;
+    overflow-x: hidden;
+   
+}
+.two{
+    
+    height:520px;
+    border: 2px solid #bed5cd;
+    
+    
+}
+.three{
+    
+    height:520px;
+    border: 2px solid #bed5cd;
+    
+    
+}

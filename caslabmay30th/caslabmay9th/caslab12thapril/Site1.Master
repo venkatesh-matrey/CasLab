@@ -1,0 +1,211 @@
+﻿ <%@ Master Language="C#" AutoEventWireup="true" CodeBehind="Site1.master.cs" Inherits="caslab12thapril.Site1" %>
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head runat="server">
+    <title>CAS Lab</title>
+     <script type="text/javascript">
+        function noBack()
+         {
+             window.history.forward()
+         }
+        noBack();
+        window.onload = noBack;
+        window.onpageshow = function(evt) { if (evt.persisted) noBack() }
+        window.onunload = function() { void (0) }
+    </script>
+  
+   <meta charset="utf-8"/>
+			<meta name="viewport" content="width=device-width, initial-scale=1"/>
+				<link rel="stylesheet" href="assets/bootstrap.min.css"/>
+					<link rel="stylesheet" href="assets/custom.css"/>
+						<link href="assets/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" />
+							<script src="assets/jquery.min.js"></script>
+							<script src="assets/bootstrap.min.js"></script>
+     <style type="text/css">
+        .auto-style1 {
+            width: 41%;
+        }
+        .auto-style2 {
+            width: 179px;
+        }
+        .auto-style3 {
+            text-align: left;
+        }
+        .auto-style4 {
+            text-align: left;
+        }
+        .auto-style5 {
+            width: 99%;
+            height: 125px;
+        }
+        .auto-style6 {
+            width: 172px;
+        }
+    </style>
+
+    <asp:ContentPlaceHolder ID="head" runat="server">
+    </asp:ContentPlaceHolder>
+</head>
+<body>
+    <form id="form1" runat="server">
+    <div>
+     	<nav  class="navbar navbar-inverse">
+								<div class="container-fluid">
+									<div class="navbar-header">
+										<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+											<span class="icon-bar"></span>
+											<span class="icon-bar"></span>
+											<span class="icon-bar"></span>
+										</button>
+										<%--<a style="color:white;" class="navbar-brand" href="#">CAS LAB</a>--%>
+                                        <a style="color:white; padding: 1px;" class="navbar-brand" href="#"><img src="img/logo.png"></a>
+									</div>
+									<div class="collapse navbar-collapse" id="myNavbar" style="margin-left:100px">
+										<ul class="nav navbar-nav">
+											
+											<li class="dropdown">
+												<a class="dropdown-toggle" data-toggle="dropdown" href="#">File 
+													<span class="caret"></span>
+												</a>
+												<ul class="dropdown-menu">
+													
+													<li>
+														<a href="CreateProject.aspx">Create Project</a>
+													</li>
+													<li>
+														<a href="CreateTask.aspx">Create Task</a>
+													</li>
+                                                    <li>
+														<a href="assignedtasks.aspx">Assigned Tasks</a>
+													</li>
+                                                    <li>
+														<a href="Reviewer2.aspx">Reviewer</a>   
+													</li>
+												</ul>
+											</li>
+											<li>
+												<a href="#">Edit</a>
+											</li>
+											<li>
+												<a href="#">Tools</a>
+											</li>
+                                           
+                                            <asp:TextBox runat="server"    class="form-control" Visible="false" id="reviewerstatus"  />
+                                          <asp:TextBox runat="server"    class="form-control" Visible="false" id="approverstatus"  />
+                                            <asp:Label ID="Label2" runat="server" visible="false" ></asp:Label>
+                                            <asp:Label ID="Label3" runat="server" visible="false" ></asp:Label>
+											<asp:Label ID="Label4" runat="server" visible="false" ></asp:Label>
+											
+										</ul>
+										<ul class="nav navbar-nav navbar-right">
+											 <li>
+												<a  href="Logout.aspx"><i style="float:right; font-size:medium; color:red "  class="fa fa-close" aria-hidden="true"></i>
+ 
+											
+												</a>
+												
+											</li>
+                                           
+										</ul>
+									</div>
+								</div>
+							</nav>
+							<div style="background-color:lavender;" class="container-fluid">
+								<div class="row">
+									<div class="col-sm-4" >
+										
+											  <asp:button runat="server"  id="homebutton"  style="color:white;" class="btn btn-primary" Width="60px" Text="Home" OnClick="homebutton_Click" ></asp:button>
+                                     
+                                         <asp:button runat="server"  id="Button1"  style="color:white;margin-left:5px" class="btn btn-primary" Width="60px" Text="Inbox" OnClick="Button1_Click"  ></asp:button>
+                                         
+                                           <asp:button runat="server"  id="Button2"  style="color:white;margin-left:5px" class="btn btn-primary" Width="70px" Text="Review" OnClick="Button2_Click"   ></asp:button>
+                                         <asp:Label ID="taskid" runat="server" />
+                                            <asp:Label ID="label10" runat="server" />
+										
+									</div>
+
+                                
+
+									
+									<div class="col-md-2" style="float:right;" >
+                                       
+                                       <h4 style="color:blue; font-style:italic"> 
+										<asp:Label runat="server" ID="username" Text="USERNAME"> </asp:Label>
+                                          </h4>  
+									</div>
+								</div>
+							</div>
+							<div style="position:relative;" class="container-fluid">
+								<div class="row">
+									<div style="background-color:#f1f1f1;     padding-right: 2px;
+    padding-left: 2px" class="col-lg-2 one" >
+										<div class="list-group list-group-tree well" >
+											<a class="list-group-item active" aria-expanded="true" data-toggle="collapse">
+												<i class="fa fa fa-chevron"></i> Project Name
+  
+											</a>
+                                            <br />
+										<div class="list-group  " aria-expanded="true">
+          
+
+                                            <asp:TreeView ID="TreeView1" runat="server" ImageSet="BulletedList3" NodeIndent="15"  OnSelectedNodeChanged="TreeView1_SelectedNodeChanged1">
+   
+                                                <leafNodeStyle />
+                                                 
+                                                <HoverNodeStyle Font-Underline="True" ForeColor="#6666AA" />
+    <NodeStyle Font-Names="Tahoma" Font-Size="8pt" ForeColor="Black"  HorizontalPadding="2px"
+        NodeSpacing="0px" VerticalPadding="2px"></NodeStyle>
+                                                
+    <ParentNodeStyle Font-Bold="False" />
+    <SelectedNodeStyle BackColor="#B5B5B5" Font-Underline="False" HorizontalPadding="0px"
+        VerticalPadding="0px"  />
+        
+</asp:TreeView>
+
+ <asp:Label ID="Label1" runat="server" Text="Label"  Visible="false" ></asp:Label>  
+     <asp:Label ID="Label5" runat="server" Text="Label"  Visible="false" ></asp:Label>                                          
+                                            
+                                            <%--<asp:Label ID="icondata" runat="server"  ><i class="fas fa-flag-checkered" style="color:#1f772d"></i></asp:Label>--%>
+											<%--<asp:DropDownList runat="server" Width="217px" ForeColor="WhiteSmoke" BackColor="CornflowerBlue" Font-Italic="true"   ID="project" DataSourceID="Sqldatasource1" DataTextField="ProjectId" DataValueField="ProjectId"  AutoPostBack="true"  class="list-group-item">
+                                               
+												</asp:DropDownList>
+                                             <asp:SqlDataSource runat="server" ID="Sqldatasource1" ConnectionString="<%$ ConnectionStrings:MatreyPharmaConnectionString %>" SelectCommand="proc_GetProjectDetailsByEmpid" SelectCommandType="StoredProcedure">
+                                                 <SelectParameters>
+                                                     <asp:SessionParameter Name="EmpId" SessionField="Session[&quot;EmpId&quot;]" Type="String" />
+                                                 </SelectParameters>
+                                                </asp:SqlDataSource>--%>
+                                          <%-- <asp:TreeView ID="TreeView1"  runat="server" ImageSet="XPFileExplorer" NodeIndent="15"></asp:TreeView>--%>                                         
+											</div>
+
+                                        -
+                                         
+
+											
+										</div>
+									</div>
+
+									<div class="col-lg-10 two" style="padding-right: 1px;
+    padding-left: 1px;" >
+        <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
+        
+        </asp:ContentPlaceHolder>
+    </div>
+    </form>
+    <script>
+
+
+$(document).ready(function() {
+    $('#example').DataTable();
+} );
+</script>
+
+<script type = "text/javascript" src = "https://code.jquery.com/jquery-3.3.1.js" ></script>
+
+<script type = "text/javascript" src = "https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js" ></script>
+
+<script type = "text/javascript" src = "https://cdn.datatables.net/1.10.19/js/dataTables.bootstrap.min.js" ></script>																																																																				
+</body>
+</html>

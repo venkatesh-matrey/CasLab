@@ -1,0 +1,269 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="Admin2.master.cs" Inherits="caslab12thapril.Admin2" %>
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head runat="server">
+     <title>Cas Labs</title>
+    
+     <script type="text/javascript">
+        function noBack()
+         {
+             window.history.forward()
+         }
+        noBack();
+        window.onload = noBack;
+        window.onpageshow = function(evt) { if (evt.persisted) noBack() }
+        window.onunload = function() { void (0) }
+    </script>
+     <meta charset="utf-8"/>
+			<meta name="viewport" content="width=device-width, initial-scale=1"/>
+				<link rel="stylesheet" href="assets/bootstrap.min.css"/>
+					<link rel="stylesheet" href="assets/custom.css"/>
+						<link href="assets/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
+							<script src="assets/jquery.min.js"></script>
+							<script src="assets/bootstrap.min.js"></script>
+    <asp:ContentPlaceHolder ID="head" runat="server">
+    </asp:ContentPlaceHolder>
+</head>
+<body>
+    <form id="form1" runat="server">
+    <div>
+        <nav  class="navbar navbar-inverse">
+								<div class="container-fluid">
+									<div class="navbar-header">
+										<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+											<span class="icon-bar"></span>
+											<span class="icon-bar"></span>
+											<span class="icon-bar"></span>
+										</button>
+										<%--<a style="color:white;" class="navbar-brand" href="#">CAS LAB</a>--%>
+                                        <a style="color:white; padding: 1px;" class="navbar-brand" href="#"><img src="img/logo.png"></a>
+									</div>
+									<div class="collapse navbar-collapse" id="myNavbar">
+										<ul class="nav navbar-nav">
+											<li class="active">
+												<a href="#">Home</a>
+											</li>
+											<li class="dropdown">
+												<a class="dropdown-toggle" data-toggle="dropdown" href="#">File 
+													<span class="caret"></span>
+												</a>
+												<ul class="dropdown-menu">
+													
+													<li>
+														<a href="#">Link 1</a>
+													</li>
+													<li>
+														<a href="#">Link 2</a>
+													</li>
+												</ul>
+											</li>
+											<li>
+												<a href="#">Edit</a>
+											</li>
+											<li>
+												<a href="#">Tools</a>
+											</li>
+										</ul>
+										<ul class="nav navbar-nav navbar-right">
+											<a  href="Logout.aspx"><i style="float:right; font-size:medium; color:red "  class="fa fa-close" aria-hidden="true"></i></a>
+ 
+										</ul>
+									</div>
+								</div>
+							</nav>
+							<div style="background-color:lavender;" class="container-fluid">
+								<div class="row">
+									<div class="col-sm-4" >
+										<div class="btn-group">
+										<asp:button runat="server"  id="homebutton"  style="color:white;" class="btn btn-primary" Width="90px" Text="Home"  ></asp:button>
+                                     
+                                         <asp:button runat="server"  id="Button2"  style="color:white;margin-left:10px" class="btn btn-primary" Width="90px" Text="Inbox"   ></asp:button>
+                                         
+                                        
+										</div>
+									</div>
+
+                                    
+									
+									<div class="col-sm-2" style="float:right;" >
+										<h4>User Name :Admin </h4>
+									</div>
+								</div>
+							</div>
+							<div style="position:relative;" class="container-fluid">
+								<div class="row">
+									<div style="background-color:#f1f1f1;     padding-right: 2px;
+    padding-left: 2px" class="col-lg-2 one" >
+										<div class="list-group list-group-tree well" >
+											<a class="list-group-item active" aria-expanded="true" data-toggle="collapse">
+												<i class="fa fa fa-chevron"></i> Admin Page
+  
+											</a>
+										<div class="list-group  " aria-expanded="true"  >
+												<%--<a href="javascript:void(0);" class="list-group-item" data-toggle="modal" data-target="#cTask" data-toggle="collapse">
+      <i class="fa fa fa-chevron"></i>
+       
+      Create Employee
+    </a>--%>
+
+                                            
+												<a href= "Employeelogin.aspx" class="list-group-item"   >
+													<i class="fa fa fa-chevron"></i>
+       
+        Provide LoginId's
+    
+												</a>
+												<a href= "EmployeesList.aspx" class="list-group-item"   >
+													<i class="fa fa fa-chevron"></i>
+       
+      Employee List
+    
+												</a>
+												
+												
+											</div>
+										<%--<asp:dropdownlist href="javascript:void(0);" runat="server" ID="Projectid" data-toggle="collapse" class="list-group-item" AppendDataBoundItems="true" AutoPostBack="true" OnSelectedIndexChanged="Projectid_SelectedIndexChanged"   >
+												
+                                             	
+											</asp:dropdownlist>--%>
+											
+										</div>
+									</div>
+
+									<div class="col-lg-10 two" >
+        <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
+        
+        </asp:ContentPlaceHolder>
+                                         <div class="modal fade" id="cTask" tabindex="-1" role="dialog">
+                  <div class="modal-dialog">
+                     <div class="modal-content">
+                        <div class="modal-header modal-header-primary">
+                           <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                           <h3><i class="fa fa-plus m-r-5"></i> Add New Employees</h3> 
+                        </div>
+                        <div class="modal-body">
+                           <div class="row">
+                              <div class="col-md-12">
+                                 <div class="form-horizontal">
+                                    <fieldset>
+                                       <!-- Text input-->
+                                       <div class="col-md-6 form-group">
+                                          <asp:label runat="server" class="control-label">Employee Id</asp:label>
+                                          <asp:TextBox ID="txtEmpid" runat="server" type="text"  class="form-control"/>
+                                       </div>
+                                       <div class="col-md-6 form-group">
+                                          <asp:label runat="server" class="control-label">Employee Name</asp:label>
+                                          <asp:TextBox Id="txtempname" runat="server" type="text" placeholder="Enter Name" class="form-control"/>
+                                        <asp:RequiredFieldValidator ErrorMessage="Required" ForeColor="Red" ControlToValidate="txtempname"
+                runat="server" />
+ 
+                                       </div>
+                                      <div class="col-md-6 form-group">
+                                          <asp:label runat="server" class="control-label">User Name</asp:label>
+                                          <asp:TextBox ID="txtusername" runat="server" type="text" placeholder="Enter UserName" class="form-control"/>
+                                        <asp:RequiredFieldValidator ErrorMessage="Required" ForeColor="Red" ControlToValidate="txtusername"
+                runat="server" />
+ 
+                                      </div>
+                                         <div class="col-md-6 form-group">
+                                          <asp:label runat="server" class="control-label">Qualification</asp:label>
+                                          <asp:TextBox ID="txtqualification" runat="server" type="text" placeholder="Enter Qualification" class="form-control"/>
+                                               <asp:RequiredFieldValidator ErrorMessage="Required" ForeColor="Red" ControlToValidate="txtqualification"
+                runat="server" />
+ 
+                                       </div> <div class="col-md-6 form-group">
+                                          <asp:label runat="server" class="control-label">Email</asp:label>
+                                          <asp:TextBox ID="txtemail" runat="server" type="text" placeholder="Enter Email" class="form-control"/>
+                                       <asp:RequiredFieldValidator ErrorMessage="Required" Display="Dynamic" ForeColor="Red"
+                ControlToValidate="txtemail" runat="server" />
+            <asp:RegularExpressionValidator runat="server" Display="Dynamic" ValidationExpression="\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*"
+                ControlToValidate="txtemail" ForeColor="Red" ErrorMessage="Invalid email address." />
+                                          </div>
+                                         <div class="col-md-6 form-group">
+                                          <asp:label runat="server" class="control-label">Phone Number</asp:label>
+                                          <asp:TextBox ID="txtphonenumber" runat="server" type="text" placeholder="Enter phoneNumber" class="form-control"/>
+                                      <asp:RequiredFieldValidator ErrorMessage="Required" ForeColor="Red" ControlToValidate="txtphonenumber"
+                runat="server" />
+<asp:RegularExpressionValidator ID="RegularExpressionValidator1" runat="server"  
+ControlToValidate="txtphonenumber" ErrorMessage="Enter Valid Number" ForeColor="Red"
+ValidationExpression="[0-9]{10}"></asp:RegularExpressionValidator> 
+                                         </div> <div class="col-md-6 form-group">
+                                          <asp:label runat="server" class="control-label">Creator</asp:label>
+                                          <asp:TextBox ID="txtcreater" runat="server" type="text" placeholder="Enter Creater" class="form-control"/>
+                                                <asp:RequiredFieldValidator ErrorMessage="Required" ForeColor="Red" ControlToValidate="txtcreater"
+                runat="server" />
+                                       </div>
+                                         <div class="col-md-6 form-group">
+                                          <asp:label runat="server" class="control-label">Reviewer</asp:label>
+                                          <asp:TextBox ID="txtreviver" runat="server" type="text" placeholder="Enter Reviver" class="form-control"/>
+                                                <asp:RequiredFieldValidator ErrorMessage="Required" ForeColor="Red" ControlToValidate="txtreviver"
+                runat="server" />
+                                       </div>
+                                         <div class="col-md-6 form-group">
+                                          <asp:label runat="server" class="control-label">Approver</asp:label>
+                                          <asp:TextBox ID="txtapprover" runat="server" type="text" placeholder="Enter Approver" class="form-control"/>
+                                                <asp:RequiredFieldValidator ErrorMessage="Required" ForeColor="Red" ControlToValidate="txtapprover"
+                runat="server" />
+                                       </div>
+                                          <div class="col-md-6 form-group">
+                                          <asp:label runat="server" class="control-label">Craete Password</asp:label>
+                                          <asp:TextBox ID="txtpassword" runat="server" type="password" placeholder="abc-541-01" class="form-control"/>
+                                               <asp:RequiredFieldValidator ErrorMessage="Required" ForeColor="Red" ControlToValidate="txtpassword"
+                runat="server" />
+ 
+                                       </div>
+                                       <!--<div class="col-md-6 form-group">
+                                          <label class="control-label">Assign to</label>
+                                          <input type="text" placeholder="Assign to" class="form-control">
+                                       </div>
+                                        Text input-->
+                                       <!-- <div class="col-md-6 form-group">
+                                          <label class="control-label">status</label>
+                                          <input type="text" placeholder="status" class="form-control">
+                                       </div> -->
+									    <div class="col-md-12 form-group">
+									   
+                       
+       
+							  </div>
+                                       <div class="col-md-12 form-group user-form-group">
+                                          <div class="pull-right">
+                                             
+                                           <asp:Button runat="server" ID="button1"  Text="Submit" class="btn btn-danger btn-sm" />
+                                               
+                                              <asp:Label ID="Label1" runat="server" Visible="false" Text="Label"></asp:Label>
+                                          </div>
+                                       </div>
+                                    </fieldset>
+                                 </div>
+                              </div>
+                           </div>
+                        </div>
+                      
+                     </div>
+
+    </div>
+                                              </div>
+                                        </div>
+
+    </div>
+                                              </div>
+    </div>
+    </form>
+     <script>
+
+
+$(document).ready(function() {
+    $('#example').DataTable();
+} );
+</script>
+
+<script type = "text/javascript" src = "https://code.jquery.com/jquery-3.3.1.js" ></script>
+
+<script type = "text/javascript" src = "https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js" ></script>
+
+<script type = "text/javascript" src = "https://cdn.datatables.net/1.10.19/js/dataTables.bootstrap.min.js" ></script>
+</body>
+</html>
