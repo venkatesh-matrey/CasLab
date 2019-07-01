@@ -13,7 +13,11 @@
         noBack();
         window.onload = noBack;
         window.onpageshow = function(evt) { if (evt.persisted) noBack() }
-        window.onunload = function() { void (0) }
+        window.onunload = function () { void (0) }
+
+       
+
+
     </script>
   
    <meta charset="utf-8"/>
@@ -24,6 +28,14 @@
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" />
 							<script src="assets/jquery.min.js"></script>
 							<script src="assets/bootstrap.min.js"></script>
+    <script type="text/javascript">
+        $(function () {
+            $("[id$=TreeView1] > table a").click(function () {
+                alert("");
+            });
+        });
+    </script>
+
      <style type="text/css">
         .auto-style1 {
             width: 41%;
