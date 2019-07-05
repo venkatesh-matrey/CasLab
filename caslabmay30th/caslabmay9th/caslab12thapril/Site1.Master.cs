@@ -33,6 +33,7 @@ namespace caslab12thapril
 
             if (!this.IsPostBack)
             {
+				binddropdwon();
                 DataTable dt = this.GetData("SELECT Id, Name,ProjectName,ProjectDescription,EmpId FROM AddProject3 where EmpId= '" + Session["EmpId"] + "' ");
                 this.PopulateTreeView(dt, 0, null);
             }
@@ -58,12 +59,12 @@ namespace caslab12thapril
                 {
                     if (admindata.Approver == username.Text)
                     {
-                        username.Text = (string)Session["Approver"];
+                        username.Text = (string)Session["UserName"];
                         //viewstatus.Visible = false;
                         //bull1.Visible = false;
                         //BulletedList2.Visible = false;
                         //GridView1.Visible = false;
-
+                        
                         string Reviewer = (string)Session["Reviewer"];
                         //sql2.SelectParameters["Reviewer"].DefaultValue = Reviewer;
                         SqlCommand comm = new SqlCommand("select count(distinct TaskId) from Inboxdetails where Approver= '" + username.Text + "' and  Reviewerstatus='ACCEPTED' and Status='PENDING' ", con);
@@ -71,7 +72,9 @@ namespace caslab12thapril
                     }
                     else if (admindata.Reviewer == username.Text)
                     {
-                        username.Text = (string)Session["Reviewer"];
+
+                        username.Text = (string)Session["UserName"];
+                        //TreeView1.Visible = false;
                         SqlCommand command = new SqlCommand("select count(distinct TaskId) from Inboxdetails where Reviewer= '" + username.Text + "' and  Reviewerstatus='PENDING' ", con);
                         Button1.Text = "Inbox(" + command.ExecuteScalar().ToString() + ")";
                         string Reviewer = (string)Session["Reviewer"];
@@ -229,7 +232,104 @@ namespace caslab12thapril
 
 
         }
+   protected void binddropdwon()
+        {
+            Projectid.Items.Insert(0, new System.Web.UI.WebControls.ListItem(" Search ", " "));
+            Projectid.AppendDataBoundItems = true;
 
+            String strQuery = "select Id,Name from AddProject3 ";
+            SqlConnection con = new SqlConnection(str);
+
+            SqlCommand cmd = new SqlCommand();
+
+            cmd.CommandType = CommandType.Text;
+            cmd.CommandText = strQuery;
+            cmd.Connection = con;
+            try
+            {
+                //con.Open();
+                //Projectid.DataSource = cmd.ExecuteReader();
+                //Projectid.DataTextField = "Name";
+                //Projectid.DataValueField = "Id";
+                //Projectid.DataBind();
+
+                con.Open();
+                Projectid.DataSource = cmd.ExecuteReader();
+                Projectid.DataTextField = "Name";
+                Projectid.DataValueField = "Id";
+                Projectid.DataBind();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                con.Close();
+                con.Dispose();
+            }
+
+        }
+        private DataTable GetsearchData(string query)
+        {
+            DataTable dt = new DataTable();
+            string str = ConfigurationManager.ConnectionStrings["MyDbCon"].ConnectionString;
+            using (SqlConnection con = new SqlConnection(str))
+            {
+                using (SqlCommand cmd = new SqlCommand(query))
+                {
+                    using (SqlDataAdapter sda = new SqlDataAdapter())
+                    {
+                        cmd.CommandType = CommandType.Text;
+                        cmd.Connection = con;
+                        sda.SelectCommand = cmd;
+                        sda.Fill(dt);
+                    }
+                }
+                return dt;
+            }
+        }
+
+
+
+        private void PopulateTreeViewsearch(DataTable dtParent, int parentId, TreeNode treeNode)
+        {
+
+            foreach (DataRow row in dtParent.Rows)
+            {
+
+                TreeNode child = new TreeNode
+                {
+
+                    Text = row["Name"].ToString(),
+                    Value = row["Id"].ToString()
+
+
+                };
+
+                if (parentId == 0)
+                {
+                    TreeView2.Nodes.Add(child);
+
+                    DataTable dtChild = this.GetsearchData("SELECT Id, Name,TaskDescription,EmpId,UserName,projectid  FROM AddnewTask2 WHERE  projectid = '" + Projectid.SelectedItem.Text + "'");
+
+                    PopulateTreeViewsearch(dtChild, int.Parse(child.Value), child);
+
+
+                }
+                else
+                {
+                    treeNode.ChildNodes.Add(child);
+
+
+
+                }
+
+
+
+
+            }
+        }
         protected void homebutton_Click(object sender, EventArgs e)
         {
             Response.Redirect("WebForm1.aspx");
@@ -239,7 +339,13 @@ namespace caslab12thapril
         {
             Response.Redirect("Inbox.aspx");
         }
-
+  protected void Projectid_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            TreeView1.Visible = false;
+            DataTable dt = this.GetsearchData("SELECT Id, Name,ProjectName,ProjectDescription,EmpId FROM AddProject3 where Name= '" + Projectid.SelectedItem.Text + "' ");
+            TreeView2.Nodes.Clear();
+            this.PopulateTreeViewsearch(dt, 0, null);
+        }
         protected void Button2_Click(object sender, EventArgs e)
         {
             taskid.Text = Session["Name"] as String;
