@@ -78,7 +78,7 @@ namespace caslab12thapril
                 {
                     byte[] bytes = br.ReadBytes((Int32)fs.Length);
 
-                    SqlCommand cmd = new SqlCommand("insert into AddEmployee(empid,EmpName,Qualification,fathername,address,email,Phone,pannumber,aadharnumber,bloodgroup,mattrialstatus,department,gender,dateofjoining,photodata,WorkLocation,position,status) values(@empid,@Empname,@Qualification,@fathername,@address,@email,@Phone,@pannumber,@aadharnumber,@bloodgroup,@mattrialstatus,@department,@gender,@dateofjoining,@photodata,@WorkLocation,@position,@status)", con);
+                    SqlCommand cmd = new SqlCommand("insert into AddEmployee(empid,EmpName,Qualification,fathername,address,email,Phone,pannumber,aadharnumber,bloodgroup,mattrialstatus,department,gender,dateofjoining,photodata,WorkLocation,position,status,IsReviewer,IsApprover) values(@empid,@Empname,@Qualification,@fathername,@address,@email,@Phone,@pannumber,@aadharnumber,@bloodgroup,@mattrialstatus,@department,@gender,@dateofjoining,@photodata,@WorkLocation,@position,@status,@IsReviewer,@IsApprover)", con);
                     cmd.Parameters.AddWithValue("@empid", empcode.Text);
 
                     cmd.Parameters.AddWithValue("@EmpName", name.Text);
@@ -99,7 +99,9 @@ namespace caslab12thapril
                     cmd.Parameters.AddWithValue("@WorkLocation", WorkLocation.Text);
                     cmd.Parameters.AddWithValue("@photodata", bytes);
                     cmd.Parameters.AddWithValue("@position", "creator");
-                    cmd.Parameters.AddWithValue("@status", "Unlocked");
+                   cmd.Parameters.AddWithValue("@status", "Active");
+                    cmd.Parameters.AddWithValue("@IsReviewer", "false");
+                    cmd.Parameters.AddWithValue("@IsApprover", "false");
                     con.Open();
                     cmd.ExecuteNonQuery();
                     con.Close();
