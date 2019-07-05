@@ -1,6 +1,6 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site1.Master" AutoEventWireup="true" CodeFile="CreateTask.aspx.cs" Inherits="caslab12thapril.CreateTask" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
-    <%--<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script> --%>
+ <%--<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script> --%>
 
 
 
@@ -13,10 +13,10 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 
     
-
+ 
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
-    <div class="buttonexport">
+     <div class="buttonexport">
          <%-- <asp:textbox ID="Textbox2" ReadOnly="true"  runat="server"  class="form-control"/>--%>
         
                            
@@ -152,6 +152,7 @@
 						
 											<br/>
 												
- 
+										
+									
 
 </asp:Content>
