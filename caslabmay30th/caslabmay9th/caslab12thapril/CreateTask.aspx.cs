@@ -17,6 +17,7 @@ namespace caslab12thapril
     {
         string str = ConfigurationManager.ConnectionStrings["MyDbCon"].ConnectionString;
 
+
         protected void Page_Load(object sender, EventArgs e)
         {
 
@@ -29,7 +30,7 @@ namespace caslab12thapril
             clear();
             NewtaskID();
             empid.Text = (string)Session["EmpId"];
-
+            
             empname.Text = (string)Session["UserName"];
             //string EmpId = (string)Session["EmpId"];
             //SqlDataSource1.SelectParameters["EmpId"].DefaultValue = EmpId;
@@ -38,7 +39,7 @@ namespace caslab12thapril
             {
 
 
-
+              
                 SetInitialRow();
 
                 DataBind();
@@ -48,7 +49,7 @@ namespace caslab12thapril
 
 
 
-                String strQuery = "select Id from AddProject3 where EmpId=@EmpId";
+                String strQuery = "select Id,Name from AddProject3 where EmpId=@EmpId";
                 SqlConnection con = new SqlConnection(str);
 
                 SqlCommand cmd = new SqlCommand();
@@ -60,7 +61,7 @@ namespace caslab12thapril
                 {
                     con.Open();
                     Projectid.DataSource = cmd.ExecuteReader();
-                    Projectid.DataTextField = "Id";
+                    Projectid.DataTextField = "Name";
                     Projectid.DataValueField = "Id";
                     Projectid.DataBind();
                 }
@@ -82,7 +83,7 @@ namespace caslab12thapril
         {
             Taskid.Text = "";
             TaskDescription.Text = "";
-
+           
         }
 
 
@@ -176,7 +177,15 @@ namespace caslab12thapril
             GridView2.DataBind();
         }
 
-
+private void employeeidbind()
+        {
+            SqlConnection con = new SqlConnection(str);
+            SqlCommand cmd = new SqlCommand("select EmpId from AddEmployee where UserName = '" + Session["UserName"] + "'", con);
+            con.Open();
+            Session["EmpId"] = cmd.ExecuteScalar();
+            con.Close();
+            string employeeid = Convert.ToString(Session["EmpId"]);
+        }
         private void AddNewRowToGrid()
         {
             int rowIndex = 0;
@@ -257,21 +266,21 @@ namespace caslab12thapril
             }
             if (e.Row.RowType == DataControlRowType.DataRow)
             {
+                 string statuschechimcal = "Enabled";
                 SqlConnection con = new SqlConnection(str);
                 con.Open();
                 var dropdown = (DropDownList)e.Row.FindControl("chemical");
-                string query = "select RawmaterialName from Rawmaterial1";
+                string query = "select rawmaterialname from AddRawmaterial where status='"+statuschechimcal+"'";
                 SqlCommand cmd = new SqlCommand(query, con);
                 SqlDataAdapter sda = new SqlDataAdapter(cmd);
                 DataTable dt = new DataTable();
                 sda.Fill(dt);
                 con.Close();
                 dropdown.DataSource = dt;
-                dropdown.DataTextField = "RawmaterialName";
-                dropdown.DataValueField = "RawmaterialName";
+                dropdown.DataTextField = "rawmaterialname";
+                dropdown.DataValueField = "rawmaterialname";
                 dropdown.DataBind();
                 dropdown.Items.Insert(0, new ListItem("---select chemical--"));
-
 
 
 
@@ -290,14 +299,14 @@ namespace caslab12thapril
                 {
                     splitItems = item.Split(",".ToCharArray());
                     sb.AppendFormat("{0}('{1}','{2}','{3}','{4}'); ", sqlStatement, splitItems[0], splitItems[1], splitItems[2], splitItems[3]);
-
+                    
                 }
             }
             try
             {
                 conn.Open();
-                SqlCommand cmd = new SqlCommand(sb.ToString(), conn);
-
+                SqlCommand cmd = new SqlCommand( sb.ToString(), conn);
+               
                 cmd.CommandType = CommandType.Text;
                 cmd.ExecuteNonQuery();
                 Page.ClientScript.RegisterClientScriptBlock(typeof(Page), "Script", "alert('Records are Saved Successfuly!');", true);
@@ -330,11 +339,11 @@ namespace caslab12thapril
                         DropDownList box1 = (DropDownList)GridView2.Rows[rowIndex].Cells[1].FindControl("chemical");
                         TextBox box2 = (TextBox)GridView2.Rows[rowIndex].Cells[2].FindControl("qun");
                         DropDownList box3 = (DropDownList)GridView2.Rows[rowIndex].Cells[3].FindControl("units");
-
+                       
                         Session["Name"] = Taskid.Text;
                         var taskdata = Session["Name"].ToString();
-
-
+                       
+                        
 
                         sc.Add(taskdata + "," + box1.Text + ", " + box2.Text + "," + box3.Text);
                         rowIndex++;
@@ -344,9 +353,10 @@ namespace caslab12thapril
                 }
 
             }
-
+ employeeidbind();
+            string employeeid = Convert.ToString(Session["EmpId"]);
             SqlConnection con = new SqlConnection(str);
-            SqlCommand cmd = new SqlCommand("insert into AddnewTask2(Id,Name,TaskDescription,TaskTypeId,EmpId,UserName)values('" + Textbox1.Text + "','" + Taskid.Text + "','" + TaskDescription.Text + "','" + Projectid.Text + "','" + empid.Text + "','" + empname.Text + "')", con);
+             SqlCommand cmd = new SqlCommand("insert into AddnewTask2(Id,Name,TaskDescription,TaskTypeId,EmpId,UserName,projectid)values('" + Textbox1.Text + "','" + Taskid.Text + "','" + TaskDescription.Text + "','" + Projectid.Text + "','" + employeeid + "','" + empname.Text + "','" + Projectid.SelectedItem.Text + "')", con);
 
             con.Open();
             cmd.ExecuteNonQuery();
@@ -363,3 +373,6 @@ namespace caslab12thapril
         }
     }
 }
+
+    
+      
