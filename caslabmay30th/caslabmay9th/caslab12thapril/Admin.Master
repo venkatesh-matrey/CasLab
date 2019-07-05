@@ -1,4 +1,4 @@
-﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="Admin.master.cs" Inherits="caslab12thapril.Admin" %>
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeFile="Admin.master.cs" Inherits="caslab12thapril.Admin" %>
 
 <!DOCTYPE html>
 
@@ -52,10 +52,13 @@
 												<ul class="dropdown-menu">
 													
 													<li>
-														<a href="#">Link 1</a>
+														<a href="CreateEmployeeForm.aspx"> Create Employee</a>
 													</li>
 													<li>
-														<a href="#">Link 2</a>
+														<a href="EmployeeLogin1.aspx"> IT Department</a>
+													</li>
+													<li>
+														<a href="EmployeesList.aspx"> Create Roles</a>
 													</li>
 												</ul>
 											</li>
@@ -67,34 +70,53 @@
 											</li>
 										</ul>
 										<ul class="nav navbar-nav navbar-right">
-											<a  href="Logout.aspx"><i style="float:right; font-size:medium; color:red "  class="fa fa-close" aria-hidden="true"></i></a>
+											 <li><h4 style="color:white">User Name :Admin </h4></li>
+
+											<li><a  href="Logout.aspx"><i style="float:right; font-size:medium; color:red "  class="fa fa-close" aria-hidden="true"></i></a></li>
+ 
  
 										</ul>
 									</div>
 								</div>
 							</nav>
-							<div style="background-color:lavender;" class="container-fluid">
+							<div style="background-color:lavender;" class="container-fluid" id="menudata">
 								<div class="row">
 									<div class="col-sm-4" >
 										<div class="btn-group">
-										<asp:button runat="server"  id="homebutton"  style="color:white;" class="btn btn-primary" Width="90px" Text="Home" OnClick="homebutton_Click"  ></asp:button>
+										<asp:button runat="server"  id="homebutton"  style="color:white;font-size:12px" ValidationGroup="menudata"  class="btn btn-primary" Width="50px" Text="Home" OnClick="homebutton_Click1"  ></asp:button>
                                      
-                                         <asp:button runat="server"  id="Button2"  style="color:white;margin-left:10px" class="btn btn-primary" Width="90px" Text="Inbox" OnClick="Button2_Click1"   ></asp:button>
-                                         
-                                        
-										</div>
-									</div>
+                                         <asp:button runat="server"  id="Button2"  style="color:white;margin-left:10px;margin-right:10px;font-size:12px" ValidationGroup="menudata" class="btn btn-primary" Width="50px" Text="Inbox" OnClick="Button2_Click1"   ></asp:button>
+                                          <asp:DropDownList runat="server" ID="Projectid" Width="95px" style="margin-left:10px" class="form-control" AppendDataBoundItems="true" ValidationGroup="menudata" AutoPostBack="true" OnSelectedIndexChanged="Projectid_SelectedIndexChanged">
 
-                                    <div class="col-sm-4" >
+                                </asp:DropDownList>
                                        
-                                  <button type="button" class="btn btn-primary"> <a  style="color:white;" href="RawMaterial.aspx" >Raw Material</a>  </button>
                                        
                                  
+                                     	</div>
+									</div>
+
+                                    <div class="col-sm-3" >
                                         </div>
 									
-									<div class="col-sm-2" style="float:right;" >
-										<h4>User Name :Admin </h4>
-									</div>
+                                      <button type="button" class="btn btn-primary"> <a  style="color:white;" href="RawMaterial.aspx" >Raw Material</a>  </button>
+                                         
+                                  <button type="button" class="btn btn-primary"> <a  style="color:white;" href="CreateEmployeeForm.aspx" >Create Employee</a>  </button>
+                                       
+                                 
+                                
+                                       
+                                  <button type="button" class="btn btn-primary"> <a  style="color:white;" href="EmployeeLogin1.aspx" >IT Department</a>  </button>
+                                       
+                                 
+                         
+                                       
+                                  <button type="button" class="btn btn-primary"> <a  style="color:white;" href="EmployeesList.aspx" > Create Roles</a>  </button>
+                                       
+										
+						
+
+                                   
+									
 								</div>
 							</div>
 							<div style="position:relative;" class="container-fluid">
@@ -106,34 +128,24 @@
 												<i class="fa fa fa-chevron"></i> Admin Page
   
 											</a>
-										<div class="list-group  " aria-expanded="true"  >
-												<%--<a href="javascript:void(0);" class="list-group-item" data-toggle="modal" data-target="#cTask" data-toggle="collapse">
-      <i class="fa fa fa-chevron"></i>
-       
-      Create Employee
-    </a>--%>
-
-                                            
-												<a href= "Hrmodule.aspx" class="list-group-item"   >
-													<i class="fa fa fa-chevron"></i>
-       
-        Create Employee
-    
-												</a>
-												<a href= "EmployeesList.aspx" class="list-group-item"   >
-													<i class="fa fa fa-chevron"></i>
-       
-      Employee List
-    
-												</a>
-												
-												
-											</div>
 										<%--<asp:dropdownlist href="javascript:void(0);" runat="server" ID="Projectid" data-toggle="collapse" class="list-group-item" AppendDataBoundItems="true" AutoPostBack="true" OnSelectedIndexChanged="Projectid_SelectedIndexChanged"   >
 												
                                              	
 											</asp:dropdownlist>--%>
-											
+											  <asp:TreeView ID="TreeView1" runat="server" ImageSet="BulletedList3" NodeIndent="15"  >
+   
+                                                <leafNodeStyle />
+                                                 
+                                                <HoverNodeStyle Font-Underline="True" ForeColor="#6666AA" />
+    <NodeStyle Font-Names="Tahoma" Font-Size="8pt" ForeColor="Black"  HorizontalPadding="2px"
+        NodeSpacing="0px" VerticalPadding="2px"></NodeStyle>
+                                                
+    <ParentNodeStyle Font-Bold="False" />
+    <SelectedNodeStyle BackColor="#B5B5B5" Font-Underline="False" HorizontalPadding="0px"
+        VerticalPadding="0px"  />
+        
+</asp:TreeView>
+        
 										</div>
 									</div>
 
