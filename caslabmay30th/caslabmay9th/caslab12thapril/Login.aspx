@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="Login.aspx.cs" Inherits="caslab12thapril.Login1" EnableEventValidation="false" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeFile="Login.aspx.cs" Inherits="caslab12thapril.Login1" EnableEventValidation="false" %>
 
 <!DOCTYPE html>
 
@@ -43,7 +43,7 @@
                         </div>
                     </div>
                     <div class="panel-body">
-                        <form action="#" id="loginForm" novalidate>
+                        
                             <div class="form-group">
                                 <asp:label runat="server" class="control-label" ID="label1" for="username">USERNAME</asp:label>
                                 <asp:textbox runat="server" type="text" placeholder="name" title="Please enter you username" required="" value="" name="username" id="txtUserName" class="form-control"/>
@@ -57,8 +57,10 @@
                             <div>
                                 <asp:button runat="server" ID="button1"  OnClick="button1_Click" Text="LOGIN" class="btn btn-add"></asp:button>
                                 <!-- <a class="btn btn-warning" href="register.html">Forget</a> -->
+                                <br />
+                                <asp:Label ID="Label3" runat="server" />
                             </div>
-                        </form>
+                        
                         </div>
                         </div>
                 </div>
