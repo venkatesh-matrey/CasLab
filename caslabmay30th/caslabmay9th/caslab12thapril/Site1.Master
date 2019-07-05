@@ -1,4 +1,4 @@
-﻿ <%@ Master Language="C#" AutoEventWireup="true" CodeBehind="Site1.master.cs" Inherits="caslab12thapril.Site1" %>
+﻿ <%@ Master Language="C#" AutoEventWireup="true" CodeFile="Site1.master.cs" Inherits="caslab12thapril.Site1" %>
 
 <!DOCTYPE html>
 
@@ -13,11 +13,7 @@
         noBack();
         window.onload = noBack;
         window.onpageshow = function(evt) { if (evt.persisted) noBack() }
-        window.onunload = function () { void (0) }
-
-       
-
-
+        window.onunload = function() { void (0) }
     </script>
   
    <meta charset="utf-8"/>
@@ -28,14 +24,6 @@
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" />
 							<script src="assets/jquery.min.js"></script>
 							<script src="assets/bootstrap.min.js"></script>
-    <script type="text/javascript">
-        $(function () {
-            $("[id$=TreeView1] > table a").click(function () {
-                alert("");
-            });
-        });
-    </script>
-
      <style type="text/css">
         .auto-style1 {
             width: 41%;
@@ -113,6 +101,11 @@
 											
 										</ul>
 										<ul class="nav navbar-nav navbar-right">
+                                            <li>
+                                                <h4 style="color:white; font-style:italic"> 
+										<asp:Label runat="server" ID="username" Text="USERNAME"> </asp:Label>
+                                          </h4> 
+                                            </li>
 											 <li>
 												<a  href="Logout.aspx"><i style="float:right; font-size:medium; color:red "  class="fa fa-close" aria-hidden="true"></i>
  
@@ -127,27 +120,27 @@
 							</nav>
 							<div style="background-color:lavender;" class="container-fluid">
 								<div class="row">
-									<div class="col-sm-4" >
-										
+									<div class="col-sm-10" >
+										<div class="btn-group">
 											  <asp:button runat="server"  id="homebutton"  style="color:white;" class="btn btn-primary" Width="60px" Text="Home" OnClick="homebutton_Click" ></asp:button>
                                      
-                                         <asp:button runat="server"  id="Button1"  style="color:white;margin-left:5px" class="btn btn-primary" Width="60px" Text="Inbox" OnClick="Button1_Click"  ></asp:button>
-                                         
-                                           <asp:button runat="server"  id="Button2"  style="color:white;margin-left:5px" class="btn btn-primary" Width="70px" Text="Review" OnClick="Button2_Click"   ></asp:button>
+                                         <asp:button runat="server"  id="Button1"  style="color:white;margin-left:5px;margin-right:5px" class="btn btn-primary" Width="70px" Text="Inbox" OnClick="Button1_Click"  ></asp:button>
+                                          <asp:DropDownList runat="server" ID="Projectid" Width="95px" style="margin-left:10px" class="form-control" AppendDataBoundItems="true" ValidationGroup="menudata" AutoPostBack="true" OnSelectedIndexChanged="Projectid_SelectedIndexChanged" />
+
                                          <asp:Label ID="taskid" runat="server" />
                                             <asp:Label ID="label10" runat="server" />
-										
+										</div>
 									</div>
 
                                 
 
-									
-									<div class="col-md-2" style="float:right;" >
+									  <div class="col-sm-2" >
                                        
-                                       <h4 style="color:blue; font-style:italic"> 
-										<asp:Label runat="server" ID="username" Text="USERNAME"> </asp:Label>
-                                          </h4>  
-									</div>
+                                       
+                                           <asp:button runat="server"  id="Button2"  style="color:white;margin-left:10px" class="btn btn-primary" Width="75px" Text="Review" OnClick="Button2_Click"   ></asp:button>
+                                 
+                                        </div>
+									
 								</div>
 							</div>
 							<div style="position:relative;" class="container-fluid">
@@ -176,7 +169,19 @@
         VerticalPadding="0px"  />
         
 </asp:TreeView>
-
+ <asp:TreeView ID="TreeView2" runat="server" ImageSet="BulletedList3" NodeIndent="15"  >
+   
+                                                <leafNodeStyle />
+                                                 
+                                                <HoverNodeStyle Font-Underline="True" ForeColor="#6666AA" />
+    <NodeStyle Font-Names="Tahoma" Font-Size="8pt" ForeColor="Black"  HorizontalPadding="2px"
+        NodeSpacing="0px" VerticalPadding="2px"></NodeStyle>
+                                                
+    <ParentNodeStyle Font-Bold="False" />
+    <SelectedNodeStyle BackColor="#B5B5B5" Font-Underline="False" HorizontalPadding="0px"
+        VerticalPadding="0px"  />
+        
+</asp:TreeView>
  <asp:Label ID="Label1" runat="server" Text="Label"  Visible="false" ></asp:Label>  
      <asp:Label ID="Label5" runat="server" Text="Label"  Visible="false" ></asp:Label>                                          
                                             
