@@ -1,10 +1,11 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Admin.Master" AutoEventWireup="true" CodeBehind="EmployeesList.aspx.cs" Inherits="caslab12thapril.EmployeesList" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Admin.Master" AutoEventWireup="true" CodeFile="EmployeesList.aspx.cs" Inherits="caslab12thapril.EmployeesList" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
  <br /><br />
+	<div  class="table-responsive" style="width:1100px; height:300px; overflow:auto;" >
       <asp:GridView ID="GridView1" runat="server" AutoGenerateColumns="False" CellPadding="4" class="table table-striped table-bordered"
-  ForeColor="#333333" GridLines="None">
+  ForeColor="#333333" GridLines="None" OnRowDataBound="GridView1_RowDataBound"  >
                           <AlternatingRowStyle BackColor="White" />
                           <Columns>
                               <asp:TemplateField HeaderText="EmpId">
@@ -50,18 +51,20 @@
                               
                               <asp:TemplateField HeaderText="Reviewer">
                                   <EditItemTemplate>
-                                       <asp:CheckBox ID="reviewerlabel" runat="server" />
+                                      <asp:Label ID="isreviewerlabel" Text='<%# Bind("IsReviewer") %>' runat="server" />
+                                       <asp:Radiobutton ID="reviewerlabel"  runat="server" />
                                   </EditItemTemplate>
                                    <ItemTemplate>
-                                      <asp:CheckBox ID="reviewerlabel" runat="server" />
+                                      <asp:Radiobutton ID="reviewerlabel"   Checked='<%# Eval("IsReviewer").ToString() == "false" ? false : true  %>' runat="server" />
                                   </ItemTemplate>
                               </asp:TemplateField>
                               <asp:TemplateField HeaderText="Approver">
                                   <EditItemTemplate>
-                                      <asp:CheckBox ID="approverlabel" runat="server" />
+                                      <asp:Label ID="isapproevrlabel" Text='<%# Bind("IsApprover") %>' runat="server" />
+                                      <asp:Radiobutton ID="approverlabel"    runat="server" />
                                   </EditItemTemplate>
                                    <ItemTemplate>
-                                      <asp:CheckBox ID="approverlabel" runat="server" />
+                                      <asp:Radiobutton ID="approverlabel"    Checked='<%# Eval("IsApprover").ToString() == "false" ? false : true  %>'  runat="server" />
                                   </ItemTemplate>
                               </asp:TemplateField>
                               <asp:TemplateField HeaderText="Position">
@@ -84,6 +87,6 @@
                           <SortedDescendingCellStyle BackColor="#E9EBEF" />
                           <SortedDescendingHeaderStyle BackColor="#4870BE" />
     </asp:GridView>
-
+	</div>
     <asp:button runat="server" ID="save" text="SAVE"  style="margin-left:474px" class="btn btn-primary" OnClick="save_Click1" CausesValidation="false"></asp:button>
 </asp:Content>
