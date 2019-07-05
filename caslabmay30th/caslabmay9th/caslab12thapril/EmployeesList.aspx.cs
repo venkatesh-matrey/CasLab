@@ -17,7 +17,7 @@ namespace caslab12thapril
         private void filldata()
         {
             SqlConnection con = new SqlConnection(str);
-            SqlDataAdapter da = new SqlDataAdapter("select EmpId,EmpName,Email,UserName,Password,position from AddEmployee", con);
+            SqlDataAdapter da = new SqlDataAdapter("select EmpId,EmpName,Email,UserName,Password,position,IsReviewer,IsApprover from AddEmployee", con);
             DataSet ds = new DataSet();
             da.Fill(ds, "AddEmployee");
             GridView1.DataSource = ds;
@@ -84,7 +84,7 @@ namespace caslab12thapril
                     {
                         //int rowIndex = ((GridViewRow)((sender as Control)).NamingContainer).RowIndex;
                         //Session["EmpId"] = GridView1.Rows[rowIndex].Cells[0].Text;
-                        SqlCommand cmd = new SqlCommand("update AddEmployee set position='Reviewer' where EmpId=@EmpId", con);
+                        SqlCommand cmd = new SqlCommand("update AddEmployee set position='Reviewer',IsReviewer='true' where EmpId=@EmpId", con);
 
 
                         try
@@ -110,7 +110,7 @@ namespace caslab12thapril
                     {
                         //int rowIndex = ((GridViewRow)((sender as Control)).NamingContainer).RowIndex;
                         //Session["EmpId"] = GridView1.Rows[rowIndex].Cells[0].Text;
-                        SqlCommand cmd = new SqlCommand("update AddEmployee set position='Approver'where EmpId=@EmpId", con);
+                        SqlCommand cmd = new SqlCommand("update AddEmployee set position='Approver',IsApprover='true' where EmpId=@EmpId", con);
 
 
                         try
@@ -133,6 +133,59 @@ namespace caslab12thapril
             }
 
         }
+
+       
+        protected void GridView1_RowDataBound(object sender, GridViewRowEventArgs e)
+        {
+            if (e.Row.RowType == DataControlRowType.DataRow)
+            {
+                Label Label1 = (e.Row.FindControl("isreviewerlabel") as Label);
+                Label label2 = (e.Row.FindControl("isapproevrlabel") as Label);
+                RadioButton radiobutton1 = (e.Row.FindControl("reviewerlabel") as RadioButton);
+                RadioButton radiobutton2 = (e.Row.FindControl("approverlabel") as RadioButton);
+                //RadioButton radiobutton1 = gvrow.FindControl("RadioButton1") as RadioButton;
+
+                //if (e.Row.Cells[5].Text == "YES")
+                //{
+                //    radiobutton1.Checked = true;
+                //    radiobutton2.Enabled = false;
+                    
+                //}
+                //else if (label2.Text == "YES")
+                //{
+                //    radiobutton1.Enabled = true;
+                //    radiobutton2.Enabled = true;
+                //}
+
+            }
+
+        }
+
+        //protected void GridView1_RowDataBound(object sender, GridViewRowEventArgs e)
+        //{
+
+        //    //RadioButton radiobutton1 = (e.Row.FindControl("reviewerlabel") as RadioButton);
+        //    if (e.Row.RowType == DataControlRowType.DataRow)
+        //    {
+        //        RadioButton radiobutton1 = (e.Row.FindControl("reviewerlabel") as RadioButton);
+        //        RadioButton radiobutton2 = (e.Row.FindControl("approverlabel") as RadioButton);
+        //        //RadioButton radiobutton1 = gvrow.FindControl("RadioButton1") as RadioButton;
+
+        //        if (e.Row.Cells[5].Text == "YES")
+        //        {
+        //            radiobutton1.Checked = true;
+        //            radiobutton2.Enabled = false;
+
+        //        }
+        //        else if (e.Row.Cells[6].Text == "YES")
+        //        {
+        //            radiobutton1.Enabled = true;
+        //            radiobutton2.Enabled = true;
+        //        }
+
+        //    }
+
+        //}
     }
 
 }
