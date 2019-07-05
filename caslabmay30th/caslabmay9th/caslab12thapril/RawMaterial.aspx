@@ -1,16 +1,30 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Admin.Master" AutoEventWireup="true" CodeBehind="RawMaterial.aspx.cs" Inherits="caslab12thapril.RawMaterial" EnableEventValidation="false" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Admin.Master" AutoEventWireup="true" CodeFile="RawMaterial.aspx.cs" Inherits="caslab12thapril.RawMaterial" EnableEventValidation="false" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
 
      
-     <h1 style="color:red;">Raw Material List</h1>
-    
-                       <%--  <div class="col-md-3 pull-right" id="searchmaterail">
+     
+    <div id="searchmaterail">
+        <div class="row">
+            <div class="col-md-12">
+        
+       <div class="col-md-6" >
+                                         <h1 style="color:red;">Raw Material List</h1>
+                                         </div>
+                                       
+                         <div class="col-md-3" style="margin-top:30px;margin-left:90px" >
                                          
-                                          <asp:textbox runat="server" ID="Textbox16" ValidationGroup="searchmaterail" placeholder="Search RawMaterialName" class="form-control"/>
-                             <asp:Button runat="server" Text="Search" ID="searchbutton" ValidationGroup="searchmaterail" OnClick="searchbutton_Click1" CausesValidation="false" />
-                                       </div>--%>
+                                          <asp:textbox runat="server" ID="Textbox16" Width="170px" ValidationGroup="searchmaterail" placeholder=" RawMaterial Name" class="form-control"/>
+                            </div>
+                             <div class="col-md-3"  style="margin-top:30px;margin-left:-90px"" >
+                              <asp:Button runat="server" Text="Search" ID="searchbutton"  class="btn btn-primary"  ValidationGroup="searchmaterail"  OnClick="searchbutton_Click"  CausesValidation="false" />
+                           
+                                       </div>
+                </div>
+            </div>
+        </div>
+  
       <div class="content-wrapper">
             <!-- Content Header (Page header) -->
            
@@ -22,21 +36,45 @@
                       
                         <div class="panel-body" >
 
-                                	<div  class="table-responsive" >
-
-                                        <asp:GridView ID="GridView1" runat="server"  OnRowDataBound="OnRowDataBound" class="table table-striped table-bordered" AutoGenerateColumns="False" CellPadding="4" DataSourceID="SqlDataSource1" ForeColor="#333333" GridLines="None" AllowPaging="True">
+                                	<div  class="table-responsive" style="width:1100px; height:300px; overflow:auto;" >
+<div >
+                                        <asp:GridView ID="GridView1"   runat="server"  OnRowDataBound="OnRowDataBound" class="table table-striped table-bordered" AutoGenerateColumns="False" CellPadding="4"  ForeColor="#333333" GridLines="None"  >
                                             <AlternatingRowStyle BackColor="White" />
                                             <Columns>
                                                <asp:TemplateField HeaderText="Select">
+																					 <HeaderTemplate>SELECT ALL:
+<br/>
+  <asp:RadioButton ID="chkAll" runat="server" />
+
+</HeaderTemplate>
 <ItemTemplate>
 <%--<input name="RadioButton1" type="radio" value='<%# Eval("id") %>' onclick="javascript.myselection(this.id)" />--%>
-  <asp:RadioButton runat="server" ID="RadioButton1" value='<%# Eval("id") %>' OnCheckedChanged="RadioButton1_CheckedChanged" onclick="javascript:CheckOtherIsCheckedByGVID(this);" />
+  <asp:RadioButton runat="server" ID="RadioButton1"  OnCheckedChanged="RadioButton1_CheckedChanged"  />
 </ItemTemplate>
 </asp:TemplateField>
                                                 <asp:BoundField DataField="rawmaterialcode" HeaderText="Raw Material Code" SortExpression="rawmaterialcode" />
                                                 <asp:BoundField DataField="rawmaterialname" HeaderText="Raw Material Name" SortExpression="rawmaterialname" />
-                                                <asp:BoundField DataField="typeofmaterial" HeaderText="Raw Material Type" SortExpression="typeofmaterial" />
+                                                 <asp:TemplateField HeaderText="Raw Material Type" SortExpression="typeofmaterial">
+                                                    <HeaderTemplate>
+                Material Type:
+                <asp:DropDownList ID="ddlCountry" runat="server" OnSelectedIndexChanged="CountryChanged" style="color:black;background-color:#507CD1"
+                    AutoPostBack="true" AppendDataBoundItems="true">
+                    <asp:ListItem Text="ALL" Value="ALL"></asp:ListItem>
+                    <asp:ListItem Text="Top 10" Value="10"></asp:ListItem>
+                    <asp:ListItem Text="SOLID" Value="SOLID"></asp:ListItem>
+                    <asp:ListItem Text="LIQUID" Value="LIQUID"></asp:ListItem>
+                    <asp:ListItem Text="GAS" Value="GAS"></asp:ListItem>
+                </asp:DropDownList>
+            </HeaderTemplate>
+                                                    <EditItemTemplate>
+                                                        <asp:TextBox ID="TextBox1" runat="server" Text='<%# Bind("typeofmaterial") %>'></asp:TextBox>
+                                                    </EditItemTemplate>
+                                                    <ItemTemplate>
+                                                        <asp:Label ID="Label1" runat="server" Text='<%# Bind("typeofmaterial") %>'></asp:Label>
+                                                    </ItemTemplate>
+                                                </asp:TemplateField>
                                                 <asp:BoundField DataField="quantity" HeaderText="Quantity" SortExpression="quantity" />
+												<asp:BoundField DataField="intermsof" HeaderText=" In Terms Of" SortExpression="intermsof" />																					
                                                 <asp:BoundField DataField="supplierinformation" HeaderText="Supplier Info" SortExpression="supplierinformation" />
                                                  <asp:BoundField DataField="status" HeaderText="Status"  SortExpression="BatchNumber" />
                                             </Columns>
@@ -51,9 +89,9 @@
                                             <SortedDescendingCellStyle BackColor="#E9EBEF" />
                                             <SortedDescendingHeaderStyle BackColor="#4870BE" />
                                         </asp:GridView>
-                                        <asp:SqlDataSource ID="SqlDataSource1" runat="server" ConnectionString="<%$ ConnectionStrings:MatreyPharmaConnectionString %>" SelectCommand="SELECT [id], [rawmaterialcode], [rawmaterialname], [typeofmaterial], [quantity], [supplierinformation],[status] FROM [AddRawmaterial]"></asp:SqlDataSource>
+                                       <asp:SqlDataSource ID="SqlDataSource1" runat="server" ConnectionString="<%$ ConnectionStrings:MatreyPharmaConnectionString %>" SelectCommand="SELECT [id], [rawmaterialcode], [rawmaterialname], [typeofmaterial], [quantity],[intermsof], [supplierinformation],[status] FROM [AddRawmaterial]"></asp:SqlDataSource>
                                         <br />
-
+																							</div>
 
   </div><br />
 
@@ -257,10 +295,18 @@
                                           <asp:label runat="server" class="control-label">Type Of Material </asp:label>
                                            <asp:textbox runat="server" ID="editmaterial" ValidationGroup="listofrawmaterialedit"  type="text" placeholder="Name" class="form-control"/>
                                        </div>
-                                            <div class="col-md-6 form-group">
+                                            <div class="col-md-3 form-group">
                                                 
                                           <asp:label runat="server" class="control-label">  Quantity </asp:label>
                                           <asp:textbox runat="server" ID="editquantaity" ValidationGroup="listofrawmaterialedit"  type="text" placeholder="Quantity" class="form-control"/>
+                                        
+                                          
+                                        
+                                       </div>
+									    <div class="col-md-3 form-group">
+                                                
+                                          <asp:label runat="server" class="control-label">  In Terms Of </asp:label>
+                                          <asp:textbox runat="server" ID="editunits" ValidationGroup="listofrawmaterialedit"  type="text" placeholder="Units" class="form-control"/>
                                         
                                           
                                         
@@ -299,9 +345,7 @@
                               </div>
                            </div>
                         </div>
-                        <div class="modal-footer">
-                           <button type="button" class="btn btn-danger pull-left" data-dismiss="modal">Close</button>
-                        </div>
+                        
                      </div>
                      <!-- /.modal-content -->
                   </div>
@@ -332,7 +376,7 @@
                                           <div class="pull-right">
                                                <button type="button" data-dismiss="modal" class="btn btn-danger btn-sm">Cancel</button>
                                            
-                                             <asp:Button runat="server" ID="EditButton"  class="form-control" Text="Edit" OnClick="EditButton_Click"  CausesValidation="false" ValidationGroup="listofrawmaterialedit" />
+                                             <asp:Button runat="server" ID="EditButton" class="btn btn-primary" Text="Edit" OnClick="EditButton_Click"  CausesValidation="false" ValidationGroup="listofrawmaterialedit" />
                                              
 
                                            <%-- <button type="button" class="btn btn-primary"  data-toggle="modal" data-dismiss="modal"  data-target="#listofrawmaterialedit"><i class="fa fa-file-plus"></i> Edit </button>--%>
@@ -383,10 +427,18 @@
                                           <asp:label runat="server" class="control-label">Type Of Material </asp:label>
                                            <asp:textbox runat="server" ID="materialdelete" ReadOnly="true" ValidationGroup="deleteramaterial"   class="form-control"/>
                                        </div>
-                                            <div class="col-md-6 form-group">
+                                            <div class="col-md-3 form-group">
                                                 
                                           <asp:label runat="server" class="control-label">  Quantity </asp:label>
                                           <asp:textbox runat="server" ID="quandelete" ReadOnly="true" ValidationGroup="deleteramaterial"   class="form-control"/>
+                                        
+                                          
+                                        
+                                       </div>
+									   <div class="col-md-3 form-group">
+                                                
+                                          <asp:label runat="server" class="control-label">   In Terms Of </asp:label>
+                                          <asp:textbox runat="server" ID="unitsdelete" ReadOnly="true" ValidationGroup="deleteramaterial"   class="form-control"/>
                                         
                                           
                                         
@@ -427,9 +479,7 @@
                               </div>
                            </div>
                         </div>
-                        <div class="modal-footer">
-                           <button type="button" class="btn btn-danger pull-left" data-dismiss="modal">Close</button>
-                        </div>
+                       
                      </div>
                      <!-- /.modal-content -->
                   </div>
@@ -464,7 +514,7 @@
                                        <div class="col-md-12 form-group user-form-group">
                                           <div class="pull-right">
                                                <button type="button" data-dismiss="modal" class="btn btn-danger btn-sm">Cancel</button>
-                                    <asp:Button runat="server" ID="Delete" Text="YES" class="form-control" OnClick="Delete_Click" ValidationGroup="deleteramaterial" CausesValidation="false" />
+                                    <asp:Button runat="server" ID="Delete" Text="YES" class="btn btn-primary" OnClick="Delete_Click" ValidationGroup="deleteramaterial" CausesValidation="false" />
                                               
 
                                           </div>
@@ -511,10 +561,18 @@
                                           <asp:label runat="server" class="control-label">Type Of Material </asp:label>
                                            <asp:textbox runat="server" ID="Textbox3" ReadOnly="true" ValidationGroup="disableramaterial"   class="form-control"/>
                                        </div>
-                                            <div class="col-md-6 form-group">
+                                            <div class="col-md-3 form-group">
                                                 
                                           <asp:label runat="server" class="control-label">  Quantity </asp:label>
                                           <asp:textbox runat="server" ID="Textbox4" ReadOnly="true" ValidationGroup="disableramaterial"   class="form-control"/>
+                                        
+                                          
+                                        
+                                       </div>
+                                              <div class="col-md-3 form-group">
+                                                
+                                          <asp:label runat="server" class="control-label">   In Terms Of </asp:label>
+                                          <asp:textbox runat="server" ID="txtintermsof" ReadOnly="true" ValidationGroup="disableramaterial"   class="form-control"/>
                                         
                                           
                                         
@@ -555,9 +613,7 @@
                               </div>
                            </div>
                         </div>
-                        <div class="modal-footer">
-                           <button type="button" class="btn btn-danger pull-left" data-dismiss="modal">Close</button>
-                        </div>
+                        
                      </div>
                      <!-- /.modal-content -->
                   </div>
@@ -635,10 +691,18 @@
                                           <asp:label runat="server" class="control-label">Type Of Material </asp:label>
                                            <asp:textbox runat="server" ID="Textbox10" ReadOnly="true" ValidationGroup="enableramaterial"   class="form-control"/>
                                        </div>
-                                            <div class="col-md-6 form-group">
+                                            <div class="col-md-3 form-group">
                                                 
                                           <asp:label runat="server" class="control-label">  Quantity </asp:label>
                                           <asp:textbox runat="server" ID="Textbox11" ReadOnly="true" ValidationGroup="enableramaterial"   class="form-control"/>
+                                        
+                                          
+                                        
+                                       </div>
+									    <div class="col-md-3 form-group">
+                                                
+                                          <asp:label runat="server" class="control-label">   In Terms Of </asp:label>
+                                          <asp:textbox runat="server" ID="intermsof" ReadOnly="true" ValidationGroup="enableramaterial"   class="form-control"/>
                                         
                                           
                                         
@@ -679,9 +743,7 @@
                               </div>
                            </div>
                         </div>
-                        <div class="modal-footer">
-                           <button type="button" class="btn btn-danger pull-left" data-dismiss="modal">Close</button>
-                        </div>
+                        
                      </div>
                      <!-- /.modal-content -->
                   </div>
@@ -732,12 +794,12 @@
 
 
                             
-                                   <div class="modal fade" id="Replace" tabindex="-1" role="dialog">
+                                 <div class="modal fade" id="Replace" tabindex="-1" role="dialog">
                   <div class="modal-dialog">
                      <div class="modal-content">
                         <div class="modal-header modal-header-primary">
                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                           <h3><i class="fa fa-plus m-r-5"></i> Replace RawMaterial </h3>
+                           <h3><i class="fa fa-plus m-r-5"></i> Replace RawMaterial</h3>
                         </div>
                         <div class="modal-body">
                            <div class="row">
@@ -745,49 +807,34 @@
                                  <div class="form-horizontal">
                                     <fieldset>
                                        <!-- Text input-->
-                                       
-                                       <%-- <asp:RadioButton ID="RadioButton2" Text="Replace" OnCheckedChanged="RadioButton2_CheckedChanged" runat="server" />
-                                          --%>  
-
-<%--                                             <div class="col-md-9 form-group">
-                                          <asp:label runat="server" Visible="false" class="control-label"> RawMaterial To Replace Or Obsolete </asp:label>
-                                             <asp:DropDownList runat="server" ID="DropDownList1"   Visible="false"  class="form-control">
-                                                 <asp:listitem Text="select Material" Value=""></asp:listitem>
-                                     <asp:ListItem Text="Solid" ></asp:ListItem>
-                                     <asp:ListItem Text="Liquid" ></asp:ListItem>
-                                     <asp:ListItem Text="Gas" ></asp:ListItem>
-                                             </asp:DropDownList>
-                                         
-                                       </div>--%>
-                                         <div class="col-md-6 form-group">
-                                          <asp:label runat="server" Visible="false" class="control-label">RawMaterialCode</asp:label>
-                                          <asp:textbox runat="server" ID="Textbox15" Visible="false"  type="text"  ValidationGroup="Replace"  class="form-control"/>
+                                          <div class="col-md-6 form-group">
+                                          <asp:label runat="server" class="control-label">Raw Material Code</asp:label>
+                                          <asp:textbox runat="server" ID="Textbox15" ReadOnly="true" ValidationGroup="Replace"    class="form-control"/>
                                        </div>
-
-                                          <div class="col-md-9 form-group">
+                                      
+                                       <div class="col-md-9 form-group">
                                           <asp:label runat="server" ID="replacing" class="control-label">Replacing RawMaterial </asp:label>
-                                             <asp:DropDownList runat="server" ID="DropDownList2"  ValidationGroup="Replace"   class="form-control">
-                                                 <asp:listitem Text="select Material" Value=""></asp:listitem>
-                                     <asp:ListItem Text="Na" ></asp:ListItem>
-                                     <asp:ListItem Text="C2H6O" ></asp:ListItem>
-                                     <asp:ListItem Text="CaSO4" ></asp:ListItem>
-                                                  <asp:ListItem Text="NH3" ></asp:ListItem> 
-                                                 <asp:ListItem Text="NO3−" ></asp:ListItem> 
-                                                 <asp:ListItem Text="CH3CO2−" ></asp:ListItem>
+                                             <asp:DropDownList runat="server" ID="DropDownList2" AppendDataBoundItems="true" AutoPostBack="true"  ValidationGroup="Replace"   class="form-control" OnSelectedIndexChanged="OnSelectedIndexChanged">
+                                                
                                              </asp:DropDownList>
+                                         <asp:RequiredFieldValidator ID="RequiredFieldValidator19" ForeColor="Red" ValidationGroup="Replace"  runat="server" ControlToValidate="DropDownList2" ErrorMessage="This Field Is Requried"></asp:RequiredFieldValidator>
                                            
                                        </div>
-
-                                          <div class="col-md-9 form-group">
+                                       
+                              <div class="col-md-9 form-group">
                                           <asp:label runat="server" class="control-label">Reason For Action</asp:label>
                                           <asp:textbox runat="server" ID="reasonforaction" type="text" Height="60px"  ValidationGroup="Replace"  class="form-control"/>
-                                       </div>
+                                         <asp:RequiredFieldValidator ID="RequiredFieldValidator20" ForeColor="Red" ValidationGroup="Replace"  runat="server" ControlToValidate="reasonforaction" ErrorMessage="This Field Is Requried"></asp:RequiredFieldValidator>
+                                       
+                              </div>
 
 
                                          <div class="col-md-9 form-group">
                                           <asp:label runat="server" class="control-label">Distribution List For Action</asp:label>
                                           <asp:textbox runat="server" ID="dis" Height="60px" type="text" ValidationGroup="Replace" class="form-control"/>
-                                       </div>
+                                         <asp:RequiredFieldValidator ID="RequiredFieldValidator21" ForeColor="Red" ValidationGroup="Replace"  runat="server" ControlToValidate="dis" ErrorMessage="This Field Is Requried"></asp:RequiredFieldValidator>
+                                       
+                                         </div>
 
 
 
@@ -795,7 +842,9 @@
                                        <div class="col-md-12 form-group user-form-group">
                                           <div class="pull-right">
                                           
-                                            <button type="button" class="btn btn-primary"  data-toggle="modal" data-dismiss="modal"  data-target="#replacematerial"><i class="fa fa-file-plus"></i> Replace </button>
+                                            <%--<button type="button" class="btn btn-primary"  data-toggle="modal" data-dismiss="modal"  data-target="#replacematerial"><i class="fa fa-file-plus"></i> Replace </button>--%>
+
+                                              <asp:Button runat="server" ID="replacepopreqried" Text="Replace"  class="btn btn-primary"  data-toggle="modal" data-dismiss="modal"  data-target="#replacematerial" ValidationGroup="Replace" />
 
                                           </div>
                                        </div>
@@ -804,16 +853,15 @@
                               </div>
                            </div>
                         </div>
-                        <div class="modal-footer">
-                           <button type="button" class="btn btn-danger pull-left" data-dismiss="modal">Close</button>
-                        </div>
+                        
                      </div>
                      <!-- /.modal-content -->
                   </div>
                   <!-- /.modal-dialog -->
                </div>
                <!-- /.modal -->
-							 
+                    
+
 
                             
                              <div class="modal fade" id="replacematerial" tabindex="-1" role="dialog">
@@ -854,6 +902,7 @@
                </div>
                <!-- /.modal -->
 
+                          
 
           <div class="buttonexport" id="buttons">
                                  
@@ -871,7 +920,7 @@
 
 
                               <%-- <a href="#" class="btn btn-add" data-toggle="modal" data-target="#Replace"><i class="fa fa-file-text"></i> Replace </a> --%>
-                                            <button type="button" class="btn btn-primary"  data-toggle="modal" data-dismiss="modal"  data-target="#Replace"><i class="fa fa-file-plus"></i> Replace </button>
+                                             <asp:Button runat="server" ID="replce" ValidationGroup="buttons" class="btn btn-primary" CausesValidation="false"  Text="Replace" data-toggle="modal"  data-target="#Replace" OnClick="replce_Click"/>
 
                          
                <asp:Button runat="server" ID="popupdelete" ValidationGroup="buttons" class="btn btn-primary" CausesValidation="false"  Text="Delete" data-toggle="modal"  data-target="#deleteramaterial" OnClick="popupdelete_Click" />
